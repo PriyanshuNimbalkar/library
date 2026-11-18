@@ -2,20 +2,22 @@
 
 const myLibrary = [];
 
-function Book(title, author, pages, hasRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.hasRead = hasRead;
+class Book {
+  constructor(title, author, pages, hasRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.hasRead = hasRead;
+  }
+
+  info() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.hasRead === true ? "already read" : "not read yet"}`;
+  }
+
+  toggleRead() {
+    this.hasRead = !this.hasRead;
+  }
 }
-
-Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${this.hasRead === true ? "already read" : "not read yet"}`;
-};
-
-Book.prototype.toggleRead = function () {
-  this.hasRead = !this.hasRead;
-};
 
 function addBookToLibrary(title, author, pages, hasRead) {
   myLibrary.push(new Book(title, author, pages, hasRead));
@@ -46,7 +48,7 @@ function displayBooks() {
 }
 
 function handleAddBook() {
-  if(addBtnForm.isConnected) return;
+  if (addBtnForm.isConnected) return;
 
   controlsContainer.appendChild(addBtnForm);
 }
@@ -102,6 +104,7 @@ bookPagesLabel.htmlFor = "pages";
 bookPages.type = "number";
 bookPages.id = "pages";
 bookPages.required = true;
+bookPages.min = 1;
 
 const readStatusLabel = document.createElement("label");
 const readStatus = document.createElement("input");
