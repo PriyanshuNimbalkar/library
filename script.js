@@ -114,3 +114,49 @@ addBtnForm.appendChild(bookPages);
 addBtnForm.appendChild(readStatusLabel);
 addBtnForm.appendChild(readStatus);
 
+// Submit and Cancel buttons
+
+const subBookBtn = document.createElement("button");
+const cancelSub = document.createElement("button");
+
+subBookBtn.textContent = "Submit Book";
+subBookBtn.type = "submit";
+subBookBtn.id = "sub-book-btn";
+
+cancelSub.textContent = "Cancel";
+cancelSub.type = "button";
+cancelSub.id = "form-cancel";
+
+addBtnForm.appendChild(subBookBtn);
+addBtnForm.appendChild(cancelSub);
+
+controlsContainer.addEventListener("click", (e) => {
+  if (e.target.id === "add-book-btn") {
+    handleAddBook();
+  } else if (e.target.id === "form-cancel") {
+    addBtnForm.remove();
+    addBtnForm.reset();
+  }
+});
+
+addBtnForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const bookNameValue = bookName.value;
+  const authorNameValue = authorName.value;
+  const bookPagesValue = Number(bookPages.value);
+  const readStatusValue = readStatus.checked;
+
+  addBookToLibrary(
+    bookNameValue,
+    authorNameValue,
+    bookPagesValue,
+    readStatusValue,
+  );
+
+  addBtnForm.remove();
+  addBtnForm.reset();
+
+  displayBooks();
+});
+
