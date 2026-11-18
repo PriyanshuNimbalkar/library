@@ -44,6 +44,13 @@ function displayBooks() {
     bookCard.appendChild(delBtn);
   });
 }
+
+function handleAddBook() {
+  if(addBtnForm.isConnected) return;
+
+  controlsContainer.appendChild(addBtnForm);
+}
+
 addBookToLibrary("eragon", "cristopher", 300, false);
 addBookToLibrary("eragon2", "cristopher2", 400, false);
 
@@ -160,3 +167,20 @@ addBtnForm.addEventListener("submit", (e) => {
   displayBooks();
 });
 
+// libraryContainer
+
+displayBooks();
+
+libraryContainer.addEventListener("click", (e) => {
+  if (e.target.textContent === "Delete") {
+    const book = e.target.closest(".book-card");
+    myLibrary.splice(book.dataset.index, 1);
+    displayBooks();
+  } else if (e.target.classList.contains("toggle")) {
+    const book = e.target.closest(".book-card");
+
+    myLibrary[book.dataset.index].toggleRead();
+
+    displayBooks();
+  }
+});
